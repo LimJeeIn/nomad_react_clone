@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>replit</title>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Btn(props) {
+        console.log(props.banana, '리렌더링');
+
+        return (
+          <button
+            onClick={props.onClick}
+            style={{
+              backgroundColor: 'tomato',
+              color: props.color,
+              padding: '10px 20px',
+              border: 0,
+              borderRadius: 10,
+              fontSize: props.fontSize,
+            }}
+          >
+            {props.banana}
+          </button>
+        );
+      }
+
+      Btn.propTypes = {
+        banana: PropTypes.string,
+        fontSize: PropTypes.number.isRequired,
+      };
+      // isRequired(필수)가 붙지 않은 곳에만 값을 바꿀수 있다
+
+      function App() {
+        const [value, setValue] = React.useState('Save Changes');
+        const [color, setColor] = React.useState('#000');
+
+        const changeValue = () => {
+          setValue('Revert Changes');
+          setColor('green');
+        };
+
+        return (
+          <div>
+            <Btn
+              banana={value}
+              onClick={changeValue}
+              color={color}
+              fontSize={18}
+            />
+            <Btn banana='Contine' fontSize={18} />
+          </div>
+        );
+      }
+
+      const root = document.getElementById('root');
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
